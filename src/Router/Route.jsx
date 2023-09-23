@@ -5,6 +5,7 @@ import MainLayout from "../layout/MainLayout";
 import Favorites from "../pages/Favorites/Favorites";
 import Login from "../pages/Login/Login";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Phone from "../pages/Phone/Phone";
 
 const Route = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const Route = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/phones/:id",
+        element: <Phone />,
+        loader: () => fetch(`/phones.json`),
       },
     ],
   },
