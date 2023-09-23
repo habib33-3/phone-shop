@@ -13,6 +13,7 @@ const Route = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch("/phones.json"),
       },
 
       {
@@ -21,9 +22,9 @@ const Route = createBrowserRouter([
       },
 
       {
-        path:"/login",
-        element:<Login/>,
-      }
+        path: "/login",
+        element: <Login />,
+      },
     ],
   },
 ]);
