@@ -1,7 +1,31 @@
 /* eslint-disable react/prop-types */
 
+import swal from "sweetalert";
+
 const PhoneCard = ({ phone }) => {
   const { id, phone_name, brand_name, rating, price, image } = phone || {};
+
+  const handleAddToFavorite = () => {
+    const addedFavoriteArray = [];
+
+    const favoriteItems = JSON.parse(localStorage.getItem("favorite"));
+
+    if (!favoriteItems) {
+      addedFavoriteArray.push(phone);
+      localStorage.setItem("favorite", JSON.stringify(addedFavoriteArray));
+      swal("Good job!", "Product Added", "success");
+    } else {
+      const isExist = favoriteItems.find((phone) => phone.id === id);
+
+      if (!isExist) {
+        addedFavoriteArray.push(...favoriteItems, phone);
+        localStorage.setItem("favorite", JSON.stringify(addedFavoriteArray));
+        swal("Good job!", "Product Added", "success");
+      } else {
+        swal("Try Another", "Product Alreday Added", "error");
+      }
+    }
+  };
 
   return (
     <div>
@@ -26,6 +50,7 @@ const PhoneCard = ({ phone }) => {
             href="#"
           >
             <button
+              onClick={handleAddToFavorite}
               className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="button"
             >
